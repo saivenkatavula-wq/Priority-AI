@@ -2,53 +2,320 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Welcome to Gmail Priority AI</title>
+    <title>Welcome to Priority AI</title>
     <style>
-      body {
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      * {
         margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         padding: 32px;
-        max-width: 720px;
-        color: #202124;
+        position: relative;
+        overflow-x: hidden;
       }
+      
+      body::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+        background-size: 50px 50px;
+        animation: gridMove 20s linear infinite;
+        pointer-events: none;
+      }
+      
+      @keyframes gridMove {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(50px, 50px); }
+      }
+      
+      .container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        padding: 48px;
+        max-width: 800px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        position: relative;
+        animation: fadeIn 0.6s ease-out;
+      }
+      
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .glow {
+        position: absolute;
+        top: -100px;
+        left: -100px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(102, 126, 234, 0.4), transparent);
+        border-radius: 50%;
+        filter: blur(60px);
+        animation: float 8s ease-in-out infinite;
+      }
+      
+      .glow:nth-child(2) {
+        top: auto;
+        bottom: -100px;
+        left: auto;
+        right: -100px;
+        background: radial-gradient(circle, rgba(118, 75, 162, 0.4), transparent);
+        animation-delay: -4s;
+      }
+      
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(30px, -30px); }
+      }
+      
       h1 {
-        margin-top: 0;
-        font-size: 28px;
+        font-size: 42px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 16px;
+        animation: slideDown 0.6s ease-out 0.2s both;
       }
+      
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .subtitle {
+        color: #5a5a5a;
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 40px;
+        animation: slideDown 0.6s ease-out 0.3s both;
+      }
+      
+      .subtitle em {
+        color: #764ba2;
+        font-style: normal;
+        font-weight: 600;
+      }
+      
+      h2 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #202124;
+        margin: 40px 0 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        animation: slideDown 0.6s ease-out 0.4s both;
+      }
+      
+      h2::before {
+        content: '';
+        width: 4px;
+        height: 24px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 2px;
+      }
+      
       ol {
-        padding-left: 20px;
+        list-style: none;
+        counter-reset: step-counter;
+        margin: 24px 0;
+        animation: slideDown 0.6s ease-out 0.5s both;
       }
+      
+      ol li {
+        counter-increment: step-counter;
+        position: relative;
+        padding: 20px 24px 20px 70px;
+        margin: 16px 0;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        border-radius: 16px;
+        border: 1px solid rgba(102, 126, 234, 0.1);
+        transition: all 0.3s ease;
+        line-height: 1.6;
+      }
+      
+      ol li:hover {
+        transform: translateX(8px);
+        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
+        border-color: rgba(102, 126, 234, 0.3);
+      }
+      
+      ol li::before {
+        content: counter(step-counter);
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 36px;
+        height: 36px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 16px;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      }
+      
       code {
-        background: #f1f3f4;
-        padding: 2px 4px;
-        border-radius: 4px;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-family: 'Fira Code', 'Courier New', monospace;
+        font-size: 14px;
+        color: #764ba2;
+        font-weight: 600;
+        border: 1px solid rgba(102, 126, 234, 0.2);
       }
+      
       .tip {
-        margin-top: 24px;
-        padding: 16px;
-        border-radius: 8px;
-        background: #e8f0fe;
+        margin-top: 40px;
+        padding: 28px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+        border: 2px solid rgba(102, 126, 234, 0.2);
+        position: relative;
+        overflow: hidden;
+        animation: slideDown 0.6s ease-out 0.6s both;
       }
+      
+      .tip::before {
+        content: '💡';
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        font-size: 80px;
+        opacity: 0.1;
+        transform: rotate(15deg);
+      }
+      
+      .tip p {
+        font-weight: 700;
+        font-size: 18px;
+        color: #202124;
+        margin-bottom: 16px;
+      }
+      
+      .tip ul {
+        list-style: none;
+        margin: 0;
+      }
+      
+      .tip li {
+        padding-left: 28px;
+        margin: 12px 0;
+        position: relative;
+        line-height: 1.6;
+        color: #5a5a5a;
+      }
+      
+      .tip li::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: #667eea;
+        font-weight: 700;
+        font-size: 18px;
+      }
+      
       a {
-        color: #1a73e8;
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 600;
+        position: relative;
+        transition: color 0.3s ease;
+      }
+      
+      a::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition: width 0.3s ease;
+      }
+      
+      a:hover {
+        color: #764ba2;
+      }
+      
+      a:hover::after {
+        width: 100%;
+      }
+      
+      strong {
+        color: #667eea;
+        font-weight: 700;
       }
     </style>
   </head>
   <body>
-    <h1>Welcome to Gmail Priority AI</h1>
-    <p>
-      Thanks for installing the extension! The AI prioritization runs entirely on Chrome’s built-in Gemini Nano model, so the very first time you use it you’ll need to approve the download.
-    </p>
-    <ol>
-      <li>Open <a href="https://mail.google.com" target="_blank" rel="noreferrer">gmail.com</a> in a new tab.</li>
-      <li>Click the <strong>Gmail Priority AI</strong> extension icon in your toolbar.</li>
-      <li>Choose <strong>Enable AI Classification</strong>. This user gesture lets Chrome download the Gemini Nano model.</li>
-      <li>Watch the inbox badges appear once AI reports “Built-in AI active”.</li>
-    </ol>
-    <div class="tip">
-      <p>
-        <strong>Pro tip:</strong> If you don’t see “Built-in AI active” after enabling, make sure you’re using Chrome Dev/Canary with the Prompt API flags turned on. You can revisit the popup any time to re-trigger the download.
+    <div class="glow"></div>
+    <div class="glow"></div>
+    
+    <div class="container">
+      <h1>Welcome to Priority AI</h1>
+      <p class="subtitle">
+        Priority AI keeps your inbox under control <em>and</em> turns any web page into an on-device AI workspace.
+        Everything runs locally through Chrome's built-in models (Prompt, Summarizer, Translator, and Language Detector),
+        so no content ever leaves your browser.
       </p>
+
+      <h2>Getting started with Gmail</h2>
+      <ol>
+        <li>Open <a href="https://mail.google.com" target="_blank" rel="noreferrer">gmail.com</a> in a new tab.</li>
+        <li>Click the <strong>Priority AI</strong> extension icon in your toolbar.</li>
+        <li>Choose <strong>Enable AI Classification</strong> to allow Chrome to download the Gemini Nano model.</li>
+        <li>Watch priority badges (Urgent / Action / FYI / Low) appear beside each conversation once the model is ready.</li>
+      </ol>
+
+      <h2>Use the floating workspace anywhere</h2>
+      <ol>
+        <li>Press <code>Alt</code> + <code>Shift</code> + <code>P</code> (or click the floating bubble) to open the launcher.</li>
+        <li>Select text or drag to capture an area. Priority AI auto-detects the language and shows the selection in a modal.</li>
+        <li>Choose <strong>Summarize</strong> for a streaming TL;DR, or tap <strong>Translate</strong> to pick/search any destination language and watch the translation appear live.</li>
+      </ol>
+
+      <div class="tip">
+        <p>Pro tips:</p>
+        <ul>
+          <li>If you don't see "Built-in AI active," make sure you're running Chrome Dev/Canary with the Prompt/Summarizer/Translator flags turned on, then retry from the popup.</li>
+          <li>The launcher remembers where you leave it; drag it to a comfortable spot or hide/show it with <code>Alt</code> + <code>Shift</code> + <code>P</code>.</li>
+          <li>Translations and summaries stream in real time—great for quick reviews without leaving the page.</li>
+        </ul>
+      </div>
     </div>
   </body>
 </html>
